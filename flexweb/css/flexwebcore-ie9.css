@@ -1,0 +1,39 @@
+/*
+Flex Web Core v2.0.3
+$Header: //FlexWeb/v2.0.3/dist/css/flexwebcore-ie9.css#16 $
+$DateTime: 2016/10/26 14:40:44 $
+*/
+
+.input-container--static-label .input__label-content {
+  top: 1.5em;
+  font-size: 1em;
+}
+
+.input__label-content {
+  text-transform: uppercase;
+  font-size: 0.85em;
+  color: #444f51;
+}
+
+.input__select {
+  padding-right: 0;
+  background-image: none;
+}
+
+.input-checkbox, .input-radio {
+  border: 0;
+  background-color: white;
+}
+
+.input-checkbox:hover, .input-checkbox:checked, .input-checkbox:checked:hover, .input-checkbox:disabled, .input-radio:hover, .input-radio:checked, .input-radio:checked:hover, .input-radio:disabled, .input-checkbox:focus, .input-checkbox:checked:focus, .input-radio:focus, .input-radio:checked:focus {
+  border: 0;
+  background-color: white;
+}
+
+.two-column-text-image-pair__flex-container--first::before {
+  display: block;
+  content: " ";
+  width: 1px;
+  height: 1px;
+}
+/*# sourceMappingURL=flexwebcore-ie9.css.map */

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions, Http } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MockBackend } from '@angular/http/testing';
-import { Com1Component } from './com1/com1.component';
+import { SupportComponent } from './support/support.component';
 import { AppService } from './app.service';
 import { MockService } from './mock.service';
 import { ResultComponent } from './result/result.component';
@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 @NgModule({
     declarations: [
       AppComponent,
-      Com1Component,
+      SupportComponent,
       ResultComponent
     ],
     imports: [

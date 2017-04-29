@@ -1,0 +1,172 @@
+
+  <div class="page-container">
+    <header class="page-header">
+      <div class="page-header__inner"><a href="#" class="logo"></a>
+      </div>
+    </header>
+    <main class="page-main">
+      <section class="one-column-image-above one-column-image-above--feature bg-color-dark">
+        <div class="grid-container">
+          <div class="grid-row">
+            <div class="column-all">
+              <div class="n-column-image-above__image-container"><i class="icon-feedback tnt tnt-image"></i></div>
+            </div>
+          </div>
+          <div class="column-spacer small-0 medium-1 large-1"></div>
+          <div class="column small-4 medium-6 large-10">
+            <h4 class="n-column-image-above__heading tnt tnt-heading">Contact Us   </h4>
+            <h5 class="n-column-image-above__subheading tnt tnt-subheading"></h5>
+            <p class="n-column-image-above__copy tnt tnt-copy"></p>
+            <!-- CALL TO ACTION BUTTON OPTIONAL--><a href="#" class="btn n-column-image-above__cta tnt tnt-cta"></a>
+            <!-- DISCLAIMER OPTIONAL-->
+            <div class="disclaimer-copy"></div>
+          </div>
+        </div>
+      </section>
+      <section class="message message--error pad-bottom-zero" ng-class="{' message--on message--visible':!!Error.errorMessage}">
+        <div class="grid-container">
+          <div class="column-all">
+            <div class="message__inner">
+              <div class="message__icon-container"><i class="icon-notification"></i></div>
+              <div class="message__text">{{ErrorMessage}}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="module-container">
+        <div class="grid-container">
+          <div class="column-spacer small-0 medium-1 large-2"></div>
+          <div class="column small-4 medium-6 large-8"><!-- ADD MODULES HERE -->
+            <h2 class="text-container type-h2 gap-bottom-xsmall">Welcome {{FirstName}}
+            </h2>
+            <p class="text-container type-h4 gap-bottom-xsmall">Please provide the following information:
+            </p>
+            <div class="input-module input-module--email">
+              <div class="input-row">
+                <div class="input-container input-column input-column--full-w-help" ng-class="{'input--focus':(EmailAddress!='')}">
+                  <div class="input">
+                    <label class="input__label"><span data-content="Email" class="input__label-content">Email</span></label>
+                    <input id="email" type="email" class="input__field" [(ngModel)]="EmailAddress">
+                  </div>
+                </div>
+                <div class="input-help input-column"><a href="#" class="input-help__link tooltip-container"><i class="icon-help input-help__icon"></i>
+                    <div class="tooltip">We’ll respond to your request by sending a message to this email address.</div></a></div>
+              </div>
+              <div id="email-error" class="input-error-text-bottom">Please enter your email</div>
+            </div>
+            <div class="input-module input-module--phone">
+              <div class="input-row">
+                <div class="input-container input-container--static-label input-column input--phone"  ng-class="{'input--focus':(Phone!='')}">
+                  <div class="input">
+                    <label class="input__label"><span data-content="Phone number" class="input__label-content">&nbsp; </span></label>
+                    <input id="phone" type="tel" pattern="[0-9]*" placeholder="(    )     -     " class="input__field input-mask-phone" [(ngModel)]="Phone">
+                  </div>
+                </div>
+                <div class="input-help input-column"><a href="#" class="input-help__link tooltip-container"><i class="icon-help input-help__icon"></i>
+                    <div class="tooltip">We’ll use this phone number if we need to call you.</div></a></div>
+              </div>
+              <div id="phone-error" class="input-error-text-bottom">Please enter your phone number</div>
+            </div>
+            <div class="input-module input-module--hide-help">
+              <div class="input-row">
+                <div class="input-container input-container--static-label input-column input-column--full-w-help">
+                  <div class="input">
+                    <label class="input__label"><span data-content="Select a topic" class="input__label-content">&nbsp;</span></label>
+                    <select name="foods-select" class="input__select"  [(ngModel)]="Subject">
+                      <option value="">Topics</option>
+                      <option value="Activate / Register Card">Activate / Register Card</option>
+                      <option value="Where Is My Card?">Where Is My Card?</option>
+                      <option value="Add Money To Card">Add Money To Card</option>
+                      <option value="Request A Refund">Request A Refund</option>
+                      <option value="Account Features">Account Features</option>
+                      <option value="Web / Mobile Log In Issue">Web / Mobile Log In Issue</option>
+                    </select><a href="#" data-modal-id="foods-select-modal" class="input__select-modal-link"></a>
+                  </div>
+                </div>
+                <div class="input-help input-column"><a href="#" class="input-help__link tooltip-container"><i class="icon-help input-help__icon"></i>
+                    <div class="tooltip">A maecenas erat dapibus adipiscing quisque quam scelerisque blandit</div></a></div>
+              </div>
+              <div id="foods-select-modal" class="modal">
+                <button class="modal__close modal__close--outer"></button>
+                <div class="modal__inner">
+                  <header class="modal__header">
+                    <div class="modal__header-title">Favorite Food</div>
+                    <button class="modal__close"></button>
+                  </header>
+                  <div class="modal__content">
+                    <ul class="modal__list"></ul>
+                  </div>
+                  <div id="foods-select-modal-success" class="modal__success"><i class="modal__success-icon icon-done type-icon-huge type-color-success"></i></div>
+                </div>
+              </div>
+              <div class="modal-background"></div>
+            </div>
+            <p class="text-container type-default gap-top-large gap-bottom-xsmall font-regular">FOR YOUR SECURITY DO NOT INCLUDE ANY OF THE FOLLOWING INFORMATION:
+            </p>
+            <p class="text-container type-default">- Your Social Security number<br>- Your Date of Birth<br>- Any Prepaid Card Numbers
+            </p>
+            <p class="text-container type-default gap-top-medium gap-bottom-zero">Please provide detailed feedback or comments ( {{((!!Question)?'remain '+ (300 - Question.length):'Limit 300')}} characters)
+            </p>
+            <div class="input-module input-module--feedback">
+              <div class="input-row">
+                <div class="input-container input-column input--textarea">
+                  <div class="input">
+                    <label class="input__label"><span data-content="Feedback" class="input__label-content">Feedback</span></label>
+                    <textarea class="input__field" [(ngModel)]="Question" maxlength="300"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div id="textarea-feedback" class="input-error-text-bottom">Please enter your feedback</div>
+            </div>
+            <div class="btn-form">
+              <div class="btn-form__inner">
+                <a href="#" class="btn btn-form__secondary-cta">Cancel</a>
+                <a href="#" data-modal-id="submit-modal" class="modal-open btn btn-form__primary-cta">Submit</a></div>
+            </div>
+            <div id="submit-modal" class="modal modal--small">
+              <button class="modal__close modal__close--outer"></button>
+              <div class="modal__inner">
+                <header class="modal__header">
+                  <div class="modal__header-title">Verify your email address</div>
+                  <button class="modal__close"></button>
+                </header>
+                <div class="modal__content">
+                  <p class="text-container type-default type-align-center type-color-error gap-top-medium gap-bottom-xsmall">Please verify your email address <br>is correct below:
+                  </p>
+                  <p class="text-container type-default type-align-center font-medium gap-bottom-large">{{EmailAddress}}
+                  </p>
+<!--<a href="#" class="btn btn--width-full js-submit-button" (click)="CreateCase()">Submit</a>-->
+<button class="btn btn--width-full js-submit-button" (click)="CreateCase()">Submit</button>
+<a href="#" class="btn btn--width-full btn--primary-outline js-change-button gap-top-xsmall">Change email address</a>
+                </div>
+                <div id="submit-modal-success" class="modal__success"><i class="modal__success-icon icon-done type-icon-huge type-color-success"></i>
+                </div>
+              </div>
+            </div>
+            <div class="modal-background"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+<!--<script>
+      $(document).ready(function(){
+        $(".js-change-button").click(function(event) {
+          event.preventDefault();
+          closeModal();
+          $("#email").focus();
+        });
+
+
+        $(".js-submit-button").click(function (event) {
+            event.preventDefault();
+            closeModal();
+            $("#email").focus();
+        });
+
+        $(".icon-feedback").click(function() {
+          $(".message").addClass('message--on message--visible');
+        });
+      });
+</script>
+<script src="./libraries/flexweb/flexwebcore.js"></script>-->

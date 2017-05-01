@@ -5,6 +5,18 @@ import { Http, Response, ResponseOptions, RequestMethod, XHRBackend, BaseRequest
 import { MockBackend } from '@angular/http/testing';
 import { AppService } from './app.service';
 
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SupportComponent } from './support/support.component';
+import { ResultComponent } from './result/result.component';
+import { Routes, RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { AppComponent } from './app.component';
+import { appRouting } from './app.routing';
+
 @Injectable()
 export class MockService {
 
@@ -12,10 +24,12 @@ export class MockService {
     private mock: MockBackend,
     private realBackend: XHRBackend,
     private options: BaseRequestOptions) {
-    this.MockService();
+    console.log('mock service go...');
+    this.MockServiceResponse();
   }
 
-  MockService() {
+
+  MockServiceResponse() {
     let ro = new ResponseOptions();
     this.mock.connections.subscribe(c => {
       switch (c.request.url) {
@@ -53,6 +67,7 @@ export class MockService {
           }
           break;
         case this.app.get_customerInfo:
+        console.log('get cust');
           ro.body = {
             Success: true,
             FirstName: 'firstname',
@@ -85,3 +100,29 @@ export class MockService {
     });
   }
 }
+
+
+let ConfigAppModule = () => {
+  return {
+    declarations: [
+      AppComponent
+    ],
+    providers: [
+      AppService,
+      MockService,
+      BaseRequestOptions,
+      MockBackend,
+      {
+        provide: Http,
+        deps: [MockBackend, BaseRequestOptions],
+        useFactory: (backend, options) => { return new Http(backend, options); }
+      }
+    ],
+    imports: [
+      RouterTestingModule,
+      FormsModule
+    ]
+  };
+};
+
+export {ConfigAppModule}

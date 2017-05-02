@@ -11,75 +11,65 @@ import { ResultComponent } from './result/result.component';
 import { Routes, RouterModule } from '@angular/router';
 
 import { appRouting } from './app.routing';
-
 import { environment } from '../environments/environment';
 
 
+export function MockFactory(backend, options): Http { return new Http(backend, options); }
 
-
-let BuildNgModel = () => {
-  let ngModel = {};
-  if (environment.production) {
-    ngModel = {
-      declarations: [
-        AppComponent,
-        SupportComponent,
-        ResultComponent
-      ],
-      imports: [
-        appRouting,
-        BrowserModule,
-        FormsModule,
-        HttpModule
-      ],
-      providers: [
-        AppService,
-        MockService,
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          deps: [MockBackend, BaseRequestOptions],
-          useFactory: (backend, options) => { return new Http(backend, options); }
-        }
-      ],
-      bootstrap: [AppComponent]
-    };
-  } else {
-    ngModel = {
-      declarations: [
-        AppComponent,
-        SupportComponent,
-        ResultComponent
-      ],
-      imports: [
-        appRouting,
-        BrowserModule,
-        FormsModule,
-        HttpModule
-      ],
-      providers: [
-        AppService,
-        MockService,
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          deps: [MockBackend, BaseRequestOptions],
-          useFactory: (backend, options) => { return new Http(backend, options); }
-        }
-      ],
-      bootstrap: [AppComponent]
-    };
-  }
-
-  return ngModel;
+// dev NgModel
+let devModel = {
+  declarations: [
+    AppComponent,
+    SupportComponent,
+    ResultComponent
+  ],
+  imports: [
+    appRouting,
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [
+    AppService,
+    MockService,
+    BaseRequestOptions,
+    MockBackend,
+    {
+      provide: Http,
+      deps: [MockBackend, BaseRequestOptions],
+      useFactory: MockFactory
+    }
+  ],
+  bootstrap: [AppComponent]
 };
 
+// prod ngModel
+let prodModel = {
+  declarations: [
+    AppComponent,
+    SupportComponent,
+    ResultComponent
+  ],
+  imports: [
+    appRouting,
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [
+    AppService,
+    { provide: MockService, useValue: {} },
+    BaseRequestOptions
+  ],
+  bootstrap: [AppComponent]
+};
 
-@NgModule(BuildNgModel())
+export function ngModuleDeclaration(): any {
+  return environment.production ? prodModel : devModel;
+}
+
+@NgModule(ngModuleDeclaration())
 export class AppModule {
   constructor(private mock: MockService) {
-    console.log('mock service ...');
   }
 }

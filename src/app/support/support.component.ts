@@ -1,4 +1,3 @@
-// import { Location } from 'tslint/lib/rules/completedDocsRule';
 import { AppService } from './../app.service';
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
@@ -40,7 +39,7 @@ export class SupportComponent implements OnInit {
       .subscribe(
       (data: any) => {
         if (!data.Success) {
-          this.ErrorMessage = 'unable to retrieve customer information';
+          this.app.Message = 'unable to retrieve customer information';
           this.router.navigateByUrl('result');
           return;
         }
@@ -52,7 +51,7 @@ export class SupportComponent implements OnInit {
         this.Success = data.Success;
       },
       (err: any) => {
-        this.ErrorMessage = 'Service unavaliable';
+        this.app.Message = 'unable to retrieve customer information';
         this.router.navigateByUrl('result');
         console.log(`error: ${err}`);
       },
@@ -88,10 +87,15 @@ export class SupportComponent implements OnInit {
       .map(res => { return res.json(); })
       .subscribe(
       (data: any) => {
-        console.log(data);
+        this.app.Message = `Request ${data.Success ? 'Success' : 'Failure'} ResponseCode ${data.ResponseCode}:ResponseText ${data.ResponseText}`;
         this.router.navigate(['result']);
       },
-      (err: any) => { console.error(err); },
+      (err: any) => {
+        let errObj = err.json();
+        this.app.Message = `Error failure Code ${errObj.ResponseCode} : ${errObj.ResponseText} `;
+        console.error(err);
+        this.router.navigate(['result']);
+      },
       () => { }
       );
   }

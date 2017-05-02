@@ -1,13 +1,14 @@
 import { Subject } from 'rxjs/Rx';
 import { ok } from 'assert';
 import { Injectable } from '@angular/core';
-import { Http, Response, ResponseOptions, RequestMethod, XHRBackend, BaseRequestOptions, RequestOptions } from '@angular/http';
+import { Http, Response, ResponseOptions, RequestMethod, XHRBackend, BaseRequestOptions, RequestOptions,HttpModule } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { AppService } from './app.service';
 
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SupportComponent } from './support/support.component';
 import { ResultComponent } from './result/result.component';
@@ -24,7 +25,6 @@ export class MockService {
     private mock: MockBackend,
     private realBackend: XHRBackend,
     private options: BaseRequestOptions) {
-    console.log('mock service go...');
     this.MockServiceResponse();
   }
 
@@ -52,7 +52,9 @@ export class MockService {
           } else if (/^badservice@.+/.test(req.EmailAddress)) {
             // for badservice@...... return system error
             ro.body = {
-              Success: false
+              Success: false,
+              ResponseCode: '999',
+              ResponseText: 'Error response text'
             };
             ro.status = 500;
             c.mockError(new Response(ro));
@@ -67,7 +69,7 @@ export class MockService {
           }
           break;
         case this.app.get_customerInfo:
-        console.log('get cust');
+          console.log('get cust');
           ro.body = {
             Success: true,
             FirstName: 'firstname',
@@ -101,28 +103,33 @@ export class MockService {
   }
 }
 
-
 let ConfigAppModule = () => {
   return {
-    declarations: [
-      AppComponent
-    ],
-    providers: [
-      AppService,
-      MockService,
-      BaseRequestOptions,
-      MockBackend,
-      {
-        provide: Http,
-        deps: [MockBackend, BaseRequestOptions],
-        useFactory: (backend, options) => { return new Http(backend, options); }
-      }
-    ],
-    imports: [
-      RouterTestingModule,
-      FormsModule
-    ]
-  };
+      declarations: [
+        AppComponent,
+        SupportComponent,
+        ResultComponent
+      ],
+      imports: [
+        appRouting,
+        BrowserModule,
+        FormsModule,
+        HttpModule
+      ],
+      providers: [
+        AppService,
+        MockService,
+        BaseRequestOptions,
+        { provide: APP_BASE_HREF, useValue: '/' },
+        MockBackend,
+        {
+          provide: Http,
+          deps: [MockBackend, BaseRequestOptions],
+          useFactory: (backend, options) => { return new Http(backend, options); }
+        }
+      ]
+    };
 };
 
-export {ConfigAppModule}
+
+export { ConfigAppModule }

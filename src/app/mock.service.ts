@@ -52,7 +52,9 @@ export class MockService {
           } else if (/^badservice@.+/.test(req.EmailAddress)) {
             // for badservice@...... return system error
             ro.body = {
-              Success: false
+              Success: false,
+              ResponseCode: '999',
+              ResponseText: 'Error response text'
             };
             ro.status = 500;
             c.mockError(new Response(ro));

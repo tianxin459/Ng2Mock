@@ -11,15 +11,13 @@ import { ResultComponent } from './result/result.component';
 import { Routes, RouterModule } from '@angular/router';
 
 import { appRouting } from './app.routing';
-
 import { environment } from '../environments/environment';
 
 
-
-
-let BuildNgModel = () => {
+@NgModule((() => {
   let ngModel = {};
   if (environment.production) {
+    // for production
     ngModel = {
       declarations: [
         AppComponent,
@@ -34,18 +32,13 @@ let BuildNgModel = () => {
       ],
       providers: [
         AppService,
-        MockService,
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          deps: [MockBackend, BaseRequestOptions],
-          useFactory: (backend, options) => { return new Http(backend, options); }
-        }
+        { provide: MockService, useValue: {} },
+        BaseRequestOptions
       ],
       bootstrap: [AppComponent]
     };
   } else {
+    // for dev, include the mock service response
     ngModel = {
       declarations: [
         AppComponent,
@@ -71,15 +64,12 @@ let BuildNgModel = () => {
       ],
       bootstrap: [AppComponent]
     };
+    console.log('mock service...');
   }
 
   return ngModel;
-};
-
-
-@NgModule(BuildNgModel())
+})())
 export class AppModule {
   constructor(private mock: MockService) {
-    console.log('mock service ...');
   }
 }

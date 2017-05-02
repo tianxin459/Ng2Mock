@@ -22,52 +22,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { appRouting } from './app.routing';
 
-describe('MockService', () => {
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({
-  //     providers: [AppService,
-  //           MockBackend,
-  //       {
-  //         provide: Http,
-  //         deps: [MockBackend, BaseRequestOptions],
-  //         useFactory: (backend, options) => { return new Http(backend, options); }
-  //       }
-  //     , XHRBackend, BrowserXhr, BaseRequestOptions, MockService]
-  //   });
-  // });
-
+xdescribe('MockService', () => {
   beforeEach(() => {
-    let app = ConfigAppModule();
-
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        SupportComponent,
-        ResultComponent
-      ],
-      imports: [
-        appRouting,
-        BrowserModule,
-        FormsModule,
-        HttpModule
-      ],
-      providers: [
-        AppService,
-        MockService,
-        BaseRequestOptions,
-        { provide: APP_BASE_HREF, useValue: '/' },
-        MockBackend,
-        {
-          provide: Http,
-          deps: [MockBackend, BaseRequestOptions],
-          useFactory: (backend, options) => { return new Http(backend, options); }
-        }
-      ]
-    });
+    TestBed.configureTestingModule(ConfigAppModule());
   });
 
-  it('should ...', inject([MockService],
-    (service: MockService) => {
+  it('should ...', inject([MockService], (service: MockService) => {
       expect(service).toBeTruthy();
     }));
 });

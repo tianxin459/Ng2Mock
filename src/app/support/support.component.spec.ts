@@ -14,13 +14,7 @@ describe('SupportComponent', () => {
   let fixture: ComponentFixture<SupportComponent>;
 
   beforeEach(async(() => {
-    let app = ConfigAppModule();
-
-    TestBed.configureTestingModule(Object.assign(app, {
-      declarations: [
-        SupportComponent
-      ]
-    }));
+    TestBed.configureTestingModule(ConfigAppModule());
     TestBed.compileComponents();
   }));
 
@@ -31,31 +25,14 @@ describe('SupportComponent', () => {
   });
 
 
-  it('should create', inject([AppService, MockBackend], (app: AppService, mock: MockBackend) => {
+  it('should create SupportComponent', inject([MockService], (mock: MockService) => {
     expect(component).toBeTruthy();
+  }));
 
-    let ro = new ResponseOptions();
-    mock.connections.subscribe(c => {
-      switch (c.request.url) {
-        case app.get_customerInfo:
-          console.log('get cust');
-          ro.body = {
-            Success: true,
-            FirstName: 'firstname',
-            LastName: 'lastname',
-            EmailAddress: 'someone@somewhere.com',
-            PhoneNumber: '6263334444'
-          };
-          ro.status = 200;
-          c.mockRespond(new Response(ro));
-          break;
-        default:
-          break;
-      }
-    });
+  it('should LoadData()', inject([MockService], (mock: MockService) => {
+    expect(component).toBeTruthy();
+    expect(mock).toBeTruthy('no mock service');
     component.LoadData();
     expect(component.Success).toBeTruthy();
   }));
-
-
 });
